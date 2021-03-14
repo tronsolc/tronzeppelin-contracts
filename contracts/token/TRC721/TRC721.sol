@@ -25,7 +25,7 @@ contract TRC721 is Context, ERC165, ITRC721, ITRC721Metadata, ITRC721Enumerable 
 
     // Equals to `bytes4(keccak256("onTRC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `ITRC721Receiver(0).onTRC721Received.selector`
-    bytes4 private constant _TRC721_RECEIVED = 0x150b7a02;
+    bytes4 private constant _TRC721_RECEIVED = 0x5175f878;
 
     // Mapping from holder address to their (enumerable) set of owned tokens
     mapping (address => EnumerableSet.UintSet) private _holderTokens;

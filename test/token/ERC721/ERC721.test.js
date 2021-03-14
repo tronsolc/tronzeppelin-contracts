@@ -20,7 +20,7 @@ describe('ERC721', function () {
   const secondTokenId = new BN('79217');
   const nonExistentTokenId = new BN('13');
 
-  const RECEIVER_MAGIC_VALUE = '0x150b7a02';
+  const RECEIVER_MAGIC_VALUE = '0x5175f878';
 
   beforeEach(async function () {
     this.token = await ERC721Mock.new(name, symbol);
