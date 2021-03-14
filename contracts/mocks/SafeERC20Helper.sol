@@ -1,13 +1,13 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
-import "../token/ERC20/IERC20.sol";
-import "../token/ERC20/SafeERC20.sol";
+import "../token/TRC20/ITRC20.sol";
+import "../token/TRC20/SafeTRC20.sol";
 
-contract ERC20ReturnFalseMock is Context {
+contract TRC20ReturnFalseMock is Context {
     uint256 private _allowance;
 
-    // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
+    // ITRC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
     // we write to a dummy state variable.
     uint256 private _dummy;
 
@@ -32,10 +32,10 @@ contract ERC20ReturnFalseMock is Context {
     }
 }
 
-contract ERC20ReturnTrueMock is Context {
+contract TRC20ReturnTrueMock is Context {
     mapping (address => uint256) private _allowances;
 
-    // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
+    // ITRC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
     // we write to a dummy state variable.
     uint256 private _dummy;
 
@@ -63,10 +63,10 @@ contract ERC20ReturnTrueMock is Context {
     }
 }
 
-contract ERC20NoReturnMock is Context {
+contract TRC20NoReturnMock is Context {
     mapping (address => uint256) private _allowances;
 
-    // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
+    // ITRC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
     // we write to a dummy state variable.
     uint256 private _dummy;
 
@@ -91,12 +91,12 @@ contract ERC20NoReturnMock is Context {
     }
 }
 
-contract SafeERC20Wrapper is Context {
-    using SafeERC20 for IERC20;
+contract SafeTRC20Wrapper is Context {
+    using SafeTRC20 for ITRC20;
 
-    IERC20 private _token;
+    ITRC20 private _token;
 
-    constructor (IERC20 token) public {
+    constructor (ITRC20 token) public {
         _token = token;
     }
 
@@ -121,7 +121,7 @@ contract SafeERC20Wrapper is Context {
     }
 
     function setAllowance(uint256 allowance_) public {
-        ERC20ReturnTrueMock(address(_token)).setAllowance(allowance_);
+        TRC20ReturnTrueMock(address(_token)).setAllowance(allowance_);
     }
 
     function allowance() public view returns (uint256) {

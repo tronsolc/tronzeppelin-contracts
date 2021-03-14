@@ -1,10 +1,10 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/GSNRecipient.sol";
-import "../GSN/GSNRecipientERC20Fee.sol";
+import "../GSN/GSNRecipientTRC20Fee.sol";
 
-contract GSNRecipientERC20FeeMock is GSNRecipient, GSNRecipientERC20Fee {
-    constructor(string memory name, string memory symbol) public GSNRecipientERC20Fee(name, symbol) { }
+contract GSNRecipientTRC20FeeMock is GSNRecipient, GSNRecipientTRC20Fee {
+    constructor(string memory name, string memory symbol) public GSNRecipientTRC20Fee(name, symbol) { }
 
     function mint(address account, uint256 amount) public {
         _mint(account, amount);

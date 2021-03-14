@@ -1,14 +1,14 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC20/ERC20Burnable.sol";
+import "../token/TRC20/TRC20Burnable.sol";
 
-contract ERC20BurnableMock is ERC20Burnable {
+contract TRC20BurnableMock is TRC20Burnable {
     constructor (
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) public ERC20(name, symbol) {
+    ) public TRC20(name, symbol) {
         _mint(initialAccount, initialBalance);
     }
 }

@@ -1,13 +1,13 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC721/ERC721.sol";
+import "../token/TRC721/TRC721.sol";
 
 /**
- * @title ERC721Mock
+ * @title TRC721Mock
  * This mock just provides a public safeMint, mint, and burn functions for testing purposes
  */
-contract ERC721Mock is ERC721 {
-    constructor (string memory name, string memory symbol) public ERC721(name, symbol) { }
+contract TRC721Mock is TRC721 {
+    constructor (string memory name, string memory symbol) public TRC721(name, symbol) { }
 
     function exists(uint256 tokenId) public view returns (bool) {
         return _exists(tokenId);

@@ -1,17 +1,17 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC721/ERC721.sol";
+import "../token/TRC721/TRC721.sol";
 import "../GSN/GSNRecipient.sol";
 import "../GSN/GSNRecipientSignature.sol";
 
 /**
- * @title ERC721GSNRecipientMock
- * A simple ERC721 mock that has GSN support enabled
+ * @title TRC721GSNRecipientMock
+ * A simple TRC721 mock that has GSN support enabled
  */
-contract ERC721GSNRecipientMock is ERC721, GSNRecipient, GSNRecipientSignature {
+contract TRC721GSNRecipientMock is TRC721, GSNRecipient, GSNRecipientSignature {
     constructor(string memory name, string memory symbol, address trustedSigner)
         public
-        ERC721(name, symbol)
+        TRC721(name, symbol)
         GSNRecipientSignature(trustedSigner)
     { }
 

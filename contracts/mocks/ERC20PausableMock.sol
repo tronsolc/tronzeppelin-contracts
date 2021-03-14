@@ -1,15 +1,15 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC20/ERC20Pausable.sol";
+import "../token/TRC20/TRC20Pausable.sol";
 
-// mock class using ERC20Pausable
-contract ERC20PausableMock is ERC20Pausable {
+// mock class using TRC20Pausable
+contract TRC20PausableMock is TRC20Pausable {
     constructor (
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) public ERC20(name, symbol) {
+    ) public TRC20(name, symbol) {
         _mint(initialAccount, initialBalance);
     }
 

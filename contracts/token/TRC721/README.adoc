@@ -1,0 +1,38 @@
+= ERC 721
+
+This set of interfaces, contracts, and utilities are all related to the https://eips.ethereum.org/EIPS/eip-721[TRC721 Non-Fungible Token Standard].
+
+TIP: For a walkthrough on how to create an TRC721 token read our xref:ROOT:trc721.adoc[TRC721 guide].
+
+The EIP consists of three interfaces, found here as {ITRC721}, {ITRC721Metadata}, and {ITRC721Enumerable}. Only the first one is required in a contract to be TRC721 compliant. However, all three are implemented in {TRC721}.
+
+Additionally, {ITRC721Receiver} can be used to prevent tokens from becoming forever locked in contracts. Imagine sending an in-game item to an exchange address that can't send it back!. When using <<ITRC721-safeTransferFrom,`safeTransferFrom`>>, the token contract checks to see that the receiver is an {ITRC721Receiver}, which implies that it knows how to handle {TRC721} tokens. If you're writing a contract that needs to receive {TRC721} tokens, you'll want to include this interface.
+
+Finally, some custom extensions are also included:
+
+Additionally there are multiple custom extensions, including:
+
+* designation of addresses that can pause token transfers for all users ({TRC721Pausable}).
+* destruction of own tokens ({TRC721Burnable}).
+
+== Core
+
+{{ITRC721}}
+
+{{ITRC721Metadata}}
+
+{{ITRC721Enumerable}}
+
+{{TRC721}}
+
+{{ITRC721Receiver}}
+
+== Extensions
+
+{{TRC721Pausable}}
+
+{{TRC721Burnable}}
+
+== Convenience
+
+{{TRC721Holder}}

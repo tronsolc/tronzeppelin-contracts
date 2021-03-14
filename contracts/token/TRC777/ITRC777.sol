@@ -1,7 +1,7 @@
 pragma solidity ^0.6.0;
 
 /**
- * @dev Interface of the ERC777Token standard as defined in the EIP.
+ * @dev Interface of the TRC777Token standard as defined in the EIP.
  *
  * This contract uses the
  * https://eips.ethereum.org/EIPS/eip-1820[ERC1820 registry standard] to let
@@ -9,7 +9,7 @@ pragma solidity ^0.6.0;
  * for the associated interfaces in said registry. See {IERC1820Registry} and
  * {ERC1820Implementer}.
  */
-interface IERC777 {
+interface ITRC777 {
     /**
      * @dev Returns the name of the token.
      */
@@ -45,7 +45,7 @@ interface IERC777 {
      *
      * If send or receive hooks are registered for the caller and `recipient`,
      * the corresponding functions will be called with `data` and empty
-     * `operatorData`. See {IERC777Sender} and {IERC777Recipient}.
+     * `operatorData`. See {ITRC777Sender} and {ITRC777Recipient}.
      *
      * Emits a {Sent} event.
      *
@@ -53,7 +53,7 @@ interface IERC777 {
      *
      * - the caller must have at least `amount` tokens.
      * - `recipient` cannot be the zero address.
-     * - if `recipient` is a contract, it must implement the {IERC777Recipient}
+     * - if `recipient` is a contract, it must implement the {ITRC777Recipient}
      * interface.
      */
     function send(address recipient, uint256 amount, bytes calldata data) external;
@@ -63,7 +63,7 @@ interface IERC777 {
      * total supply.
      *
      * If a send hook is registered for the caller, the corresponding function
-     * will be called with `data` and empty `operatorData`. See {IERC777Sender}.
+     * will be called with `data` and empty `operatorData`. See {ITRC777Sender}.
      *
      * Emits a {Burned} event.
      *
@@ -124,7 +124,7 @@ interface IERC777 {
      *
      * If send or receive hooks are registered for `sender` and `recipient`,
      * the corresponding functions will be called with `data` and
-     * `operatorData`. See {IERC777Sender} and {IERC777Recipient}.
+     * `operatorData`. See {ITRC777Sender} and {ITRC777Recipient}.
      *
      * Emits a {Sent} event.
      *
@@ -134,7 +134,7 @@ interface IERC777 {
      * - `sender` must have at least `amount` tokens.
      * - the caller must be an operator for `sender`.
      * - `recipient` cannot be the zero address.
-     * - if `recipient` is a contract, it must implement the {IERC777Recipient}
+     * - if `recipient` is a contract, it must implement the {ITRC777Recipient}
      * interface.
      */
     function operatorSend(
@@ -150,7 +150,7 @@ interface IERC777 {
      * The caller must be an operator of `account`.
      *
      * If a send hook is registered for `account`, the corresponding function
-     * will be called with `data` and `operatorData`. See {IERC777Sender}.
+     * will be called with `data` and `operatorData`. See {ITRC777Sender}.
      *
      * Emits a {Burned} event.
      *

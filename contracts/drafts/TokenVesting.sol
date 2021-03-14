@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC20/SafeERC20.sol";
+import "../token/TRC20/SafeTRC20.sol";
 import "../access/Ownable.sol";
 import "../math/SafeMath.sol";
 
@@ -18,7 +18,7 @@ contract TokenVesting is Ownable {
     // solhint-disable not-rely-on-time
 
     using SafeMath for uint256;
-    using SafeERC20 for IERC20;
+    using SafeTRC20 for ITRC20;
 
     event TokensReleased(address token, uint256 amount);
     event TokenVestingRevoked(address token);
@@ -37,7 +37,7 @@ contract TokenVesting is Ownable {
     mapping (address => bool) private _revoked;
 
     /**
-     * @dev Creates a vesting contract that vests its balance of any ERC20 token to the
+     * @dev Creates a vesting contract that vests its balance of any TRC20 token to the
      * beneficiary, gradually in a linear fashion until start + duration. By then all
      * of the balance will have vested.
      * @param beneficiary address of the beneficiary to whom vested tokens are transferred
@@ -112,9 +112,9 @@ contract TokenVesting is Ownable {
 
     /**
      * @notice Transfers vested tokens to beneficiary.
-     * @param token ERC20 token which is being vested
+     * @param token TRC20 token which is being vested
      */
-    function release(IERC20 token) public {
+    function release(ITRC20 token) public {
         uint256 unreleased = _releasableAmount(token);
 
         require(unreleased > 0, "TokenVesting: no tokens are due");
@@ -129,9 +129,9 @@ contract TokenVesting is Ownable {
     /**
      * @notice Allows the owner to revoke the vesting. Tokens already vested
      * remain in the contract, the rest are returned to the owner.
-     * @param token ERC20 token which is being vested
+     * @param token TRC20 token which is being vested
      */
-    function revoke(IERC20 token) public onlyOwner {
+    function revoke(ITRC20 token) public onlyOwner {
         require(_revocable, "TokenVesting: cannot revoke");
         require(!_revoked[address(token)], "TokenVesting: token already revoked");
 
@@ -149,17 +149,17 @@ contract TokenVesting is Ownable {
 
     /**
      * @dev Calculates the amount that has already vested but hasn't been released yet.
-     * @param token ERC20 token which is being vested
+     * @param token TRC20 token which is being vested
      */
-    function _releasableAmount(IERC20 token) private view returns (uint256) {
+    function _releasableAmount(ITRC20 token) private view returns (uint256) {
         return _vestedAmount(token).sub(_released[address(token)]);
     }
 
     /**
      * @dev Calculates the amount that has already vested.
-     * @param token ERC20 token which is being vested
+     * @param token TRC20 token which is being vested
      */
-    function _vestedAmount(IERC20 token) private view returns (uint256) {
+    function _vestedAmount(ITRC20 token) private view returns (uint256) {
         uint256 currentBalance = token.balanceOf(address(this));
         uint256 totalBalance = currentBalance.add(_released[address(token)]);
 

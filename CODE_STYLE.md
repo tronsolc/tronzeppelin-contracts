@@ -59,11 +59,11 @@ Any exception or additions specific to our project are documented below.
     }
     ```
 
-  Some standards (e.g. ERC20) use present tense, and in those cases the
+  Some standards (e.g. TRC20) use present tense, and in those cases the
   standard specification prevails.
-  
+
 * Interface names should have a capital I prefix.
 
     ```
-    interface IERC777 {
+    interface ITRC777 {
     ```

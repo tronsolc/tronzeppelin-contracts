@@ -1,8 +1,8 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC721/IERC721Receiver.sol";
+import "../token/TRC721/ITRC721Receiver.sol";
 
-contract ERC721ReceiverMock is IERC721Receiver {
+contract TRC721ReceiverMock is ITRC721Receiver {
     bytes4 private _retval;
     bool private _reverts;
 
@@ -13,10 +13,10 @@ contract ERC721ReceiverMock is IERC721Receiver {
         _reverts = reverts;
     }
 
-    function onERC721Received(address operator, address from, uint256 tokenId, bytes memory data)
+    function onTRC721Received(address operator, address from, uint256 tokenId, bytes memory data)
         public override returns (bytes4)
     {
-        require(!_reverts, "ERC721ReceiverMock: reverting");
+        require(!_reverts, "TRC721ReceiverMock: reverting");
         emit Received(operator, from, tokenId, data, gasleft());
         return _retval;
     }

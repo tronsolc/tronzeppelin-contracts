@@ -1,0 +1,44 @@
+= ERC 20
+
+This set of interfaces, contracts, and utilities are all related to the https://eips.ethereum.org/EIPS/eip-20[TRC20 Token Standard].
+
+TIP: For an overview of TRC20 tokens and a walkthrough on how to create a token contract read our xref:ROOT:trc20.adoc[TRC20 guide].
+
+There a few core contracts that implement the behavior specified in the EIP:
+
+* {ITRC20}: the interface all TRC20 implementations should conform to.
+* {TRC20}: the implementation of the TRC20 interface, including the <<TRC20-name,`name`>>, <<TRC20-symbol,`symbol`>> and <<TRC20-decimals,`decimals`>> optional standard extension to the base interface.
+
+Additionally there are multiple custom extensions, including:
+
+* designation of addresses that can pause token transfers for all users ({TRC20Pausable}).
+* efficient storage of past token balances to be later queried at any point in time ({TRC20Snapshot}).
+* destruction of own tokens ({TRC20Burnable}).
+* enforcement of a cap to the total supply when minting tokens ({TRC20Capped}).
+
+Finally, there are some utilities to interact with TRC20 contracts in various ways.
+
+* {SafeTRC20} is a wrapper around the interface that eliminates the need to handle boolean return values.
+* {TokenTimelock} can hold tokens for a beneficiary until a specified time.
+
+== Core
+
+{{ITRC20}}
+
+{{TRC20}}
+
+== Extensions
+
+{{TRC20Snapshot}}
+
+{{TRC20Pausable}}
+
+{{TRC20Burnable}}
+
+{{TRC20Capped}}
+
+== Utilities
+
+{{SafeTRC20}}
+
+{{TokenTimelock}}

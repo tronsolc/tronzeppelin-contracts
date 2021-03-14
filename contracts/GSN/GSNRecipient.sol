@@ -13,7 +13,7 @@ import "./Context.sol";
  * provided by derived contracts. See the
  * xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategies] for more
  * information on how to use the pre-built {GSNRecipientSignature} and
- * {GSNRecipientERC20Fee}, or how to write your own.
+ * {GSNRecipientTRC20Fee}, or how to write your own.
  */
 abstract contract GSNRecipient is IRelayRecipient, Context {
     // Default RelayHub address, deployed on mainnet and all testnets at the same address

@@ -3,9 +3,9 @@ pragma solidity ^0.6.2;
 import "../../introspection/IERC165.sol";
 
 /**
- * @dev Required interface of an ERC721 compliant contract.
+ * @dev Required interface of an TRC721 compliant contract.
  */
-interface IERC721 is IERC165 {
+interface ITRC721 is IERC165 {
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);

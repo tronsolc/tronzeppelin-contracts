@@ -1,13 +1,13 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
-import "../token/ERC777/IERC777.sol";
-import "../token/ERC777/IERC777Sender.sol";
-import "../token/ERC777/IERC777Recipient.sol";
+import "../token/TRC777/ITRC777.sol";
+import "../token/TRC777/ITRC777Sender.sol";
+import "../token/TRC777/ITRC777Recipient.sol";
 import "../introspection/IERC1820Registry.sol";
 import "../introspection/ERC1820Implementer.sol";
 
-contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, ERC1820Implementer {
+contract TRC777SenderRecipientMock is Context, ITRC777Sender, ITRC777Recipient, ERC1820Implementer {
     event TokensToSendCalled(
         address operator,
         address from,
@@ -37,8 +37,8 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
 
     IERC1820Registry private _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
-    bytes32 constant private _TOKENS_SENDER_INTERFACE_HASH = keccak256("ERC777TokensSender");
-    bytes32 constant private _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
+    bytes32 constant private _TOKENS_SENDER_INTERFACE_HASH = keccak256("TRC777TokensSender");
+    bytes32 constant private _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("TRC777TokensRecipient");
 
     function tokensToSend(
         address operator,
@@ -52,7 +52,7 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
             revert();
         }
 
-        IERC777 token = IERC777(_msgSender());
+        ITRC777 token = ITRC777(_msgSender());
 
         uint256 fromBalance = token.balanceOf(from);
         // when called due to burn, to will be the zero address, which will have a balance of 0
@@ -83,7 +83,7 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
             revert();
         }
 
-        IERC777 token = IERC777(_msgSender());
+        ITRC777 token = ITRC777(_msgSender());
 
         uint256 fromBalance = token.balanceOf(from);
         // when called due to burn, to will be the zero address, which will have a balance of 0
@@ -136,12 +136,12 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
         _shouldRevertReceive = shouldRevert;
     }
 
-    function send(IERC777 token, address to, uint256 amount, bytes memory data) public {
+    function send(ITRC777 token, address to, uint256 amount, bytes memory data) public {
         // This is 777's send function, not the Solidity send function
         token.send(to, amount, data); // solhint-disable-line check-send-result
     }
 
-    function burn(IERC777 token, uint256 amount, bytes memory data) public {
+    function burn(ITRC777 token, uint256 amount, bytes memory data) public {
         token.burn(amount, data);
     }
 }

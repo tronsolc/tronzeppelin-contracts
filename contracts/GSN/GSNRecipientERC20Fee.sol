@@ -3,11 +3,11 @@ pragma solidity ^0.6.0;
 import "./GSNRecipient.sol";
 import "../math/SafeMath.sol";
 import "../access/Ownable.sol";
-import "../token/ERC20/SafeERC20.sol";
-import "../token/ERC20/ERC20.sol";
+import "../token/TRC20/SafeTRC20.sol";
+import "../token/TRC20/TRC20.sol";
 
 /**
- * @dev A xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategy] that charges transaction fees in a special purpose ERC20
+ * @dev A xref:ROOT:gsn-strategies.adoc#gsn-strategies[GSN strategy] that charges transaction fees in a special purpose TRC20
  * token, which we refer to as the gas payment token. The amount charged is exactly the amount of Ether charged to the
  * recipient. This means that the token is essentially pegged to the value of Ether.
  *
@@ -15,28 +15,28 @@ import "../token/ERC20/ERC20.sol";
  * whose only minter is the recipient, so the strategy must be implemented in a derived contract, making use of the
  * internal {_mint} function.
  */
-contract GSNRecipientERC20Fee is GSNRecipient {
-    using SafeERC20 for __unstable__ERC20Owned;
+contract GSNRecipientTRC20Fee is GSNRecipient {
+    using SafeTRC20 for __unstable__TRC20Owned;
     using SafeMath for uint256;
 
-    enum GSNRecipientERC20FeeErrorCodes {
+    enum GSNRecipientTRC20FeeErrorCodes {
         INSUFFICIENT_BALANCE
     }
 
-    __unstable__ERC20Owned private _token;
+    __unstable__TRC20Owned private _token;
 
     /**
      * @dev The arguments to the constructor are the details that the gas payment token will have: `name` and `symbol`. `decimals` is hard-coded to 18.
      */
     constructor(string memory name, string memory symbol) public {
-        _token = new __unstable__ERC20Owned(name, symbol);
+        _token = new __unstable__TRC20Owned(name, symbol);
     }
 
     /**
      * @dev Returns the gas payment token.
      */
-    function token() public view returns (IERC20) {
-        return IERC20(_token);
+    function token() public view returns (ITRC20) {
+        return ITRC20(_token);
     }
 
     /**
@@ -67,7 +67,7 @@ contract GSNRecipientERC20Fee is GSNRecipient {
         returns (uint256, bytes memory)
     {
         if (_token.balanceOf(from) < maxPossibleCharge) {
-            return _rejectRelayedCall(uint256(GSNRecipientERC20FeeErrorCodes.INSUFFICIENT_BALANCE));
+            return _rejectRelayedCall(uint256(GSNRecipientTRC20FeeErrorCodes.INSUFFICIENT_BALANCE));
         }
 
         return _approveRelayedCall(abi.encode(from, maxPossibleCharge, transactionFee, gasPrice));
@@ -95,7 +95,7 @@ contract GSNRecipientERC20Fee is GSNRecipient {
 
         // actualCharge is an _estimated_ charge, which assumes postRelayedCall will use all available gas.
         // This implementation's gas cost can be roughly estimated as 10k gas, for the two SSTORE operations in an
-        // ERC20 transfer.
+        // TRC20 transfer.
         uint256 overestimation = _computeCharge(_POST_RELAYED_CALL_MAX_GAS.sub(10000), gasPrice, transactionFee);
         actualCharge = actualCharge.sub(overestimation);
 
@@ -105,18 +105,18 @@ contract GSNRecipientERC20Fee is GSNRecipient {
 }
 
 /**
- * @title __unstable__ERC20Owned
- * @dev An ERC20 token owned by another contract, which has minting permissions and can use transferFrom to receive
- * anyone's tokens. This contract is an internal helper for GSNRecipientERC20Fee, and should not be used
+ * @title __unstable__TRC20Owned
+ * @dev An TRC20 token owned by another contract, which has minting permissions and can use transferFrom to receive
+ * anyone's tokens. This contract is an internal helper for GSNRecipientTRC20Fee, and should not be used
  * outside of this context.
  */
 // solhint-disable-next-line contract-name-camelcase
-contract __unstable__ERC20Owned is ERC20, Ownable {
+contract __unstable__TRC20Owned is TRC20, Ownable {
     uint256 private constant _UINT256_MAX = 2**256 - 1;
 
-    constructor(string memory name, string memory symbol) public ERC20(name, symbol) { }
+    constructor(string memory name, string memory symbol) public TRC20(name, symbol) { }
 
-    // The owner (GSNRecipientERC20Fee) can mint tokens
+    // The owner (GSNRecipientTRC20Fee) can mint tokens
     function mint(address account, uint256 amount) public onlyOwner {
         _mint(account, amount);
     }

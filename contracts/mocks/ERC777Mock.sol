@@ -1,16 +1,16 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
-import "../token/ERC777/ERC777.sol";
+import "../token/TRC777/TRC777.sol";
 
-contract ERC777Mock is Context, ERC777 {
+contract TRC777Mock is Context, TRC777 {
     constructor(
         address initialHolder,
         uint256 initialBalance,
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) public ERC777(name, symbol, defaultOperators) {
+    ) public TRC777(name, symbol, defaultOperators) {
         _mint(initialHolder, initialBalance, "", "");
     }
 

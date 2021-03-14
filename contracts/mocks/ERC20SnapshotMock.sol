@@ -1,15 +1,15 @@
 pragma solidity ^0.6.0;
 
-import "../token/ERC20/ERC20Snapshot.sol";
+import "../token/TRC20/TRC20Snapshot.sol";
 
 
-contract ERC20SnapshotMock is ERC20Snapshot {
+contract TRC20SnapshotMock is TRC20Snapshot {
     constructor(
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) public ERC20(name, symbol) {
+    ) public TRC20(name, symbol) {
         _mint(initialAccount, initialBalance);
     }
 

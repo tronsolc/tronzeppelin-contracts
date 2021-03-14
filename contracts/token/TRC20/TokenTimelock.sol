@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import "./SafeERC20.sol";
+import "./SafeTRC20.sol";
 
 /**
  * @dev A token holder contract that will allow a beneficiary to extract the
@@ -12,10 +12,10 @@ import "./SafeERC20.sol";
  * For a more complete vesting schedule, see {TokenVesting}.
  */
 contract TokenTimelock {
-    using SafeERC20 for IERC20;
+    using SafeTRC20 for ITRC20;
 
-    // ERC20 basic token contract being held
-    IERC20 private _token;
+    // TRC20 basic token contract being held
+    ITRC20 private _token;
 
     // beneficiary of tokens after they are released
     address private _beneficiary;
@@ -23,7 +23,7 @@ contract TokenTimelock {
     // timestamp when token release is enabled
     uint256 private _releaseTime;
 
-    constructor (IERC20 token, address beneficiary, uint256 releaseTime) public {
+    constructor (ITRC20 token, address beneficiary, uint256 releaseTime) public {
         // solhint-disable-next-line not-rely-on-time
         require(releaseTime > block.timestamp, "TokenTimelock: release time is before current time");
         _token = token;
@@ -34,7 +34,7 @@ contract TokenTimelock {
     /**
      * @return the token being held.
      */
-    function token() public view returns (IERC20) {
+    function token() public view returns (ITRC20) {
         return _token;
     }
 

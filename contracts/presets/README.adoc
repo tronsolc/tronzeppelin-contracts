@@ -8,6 +8,6 @@ TIP: Intermediate and advanced users can use these as starting points when writi
 
 == Tokens
 
-{{ERC20PresetMinterPauser}}
+{{TRC20PresetMinterPauser}}
 
-{{ERC721PresetMinterPauserAutoId}}
+{{TRC721PresetMinterPauserAutoId}}
