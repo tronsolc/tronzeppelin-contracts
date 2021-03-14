@@ -4,10 +4,10 @@ pragma solidity ^0.6.0;
  * @dev Interface of the TRC777Token standard as defined in the EIP.
  *
  * This contract uses the
- * https://eips.ethereum.org/EIPS/eip-1820[ERC1820 registry standard] to let
+ * https://eips.ethereum.org/EIPS/eip-1820[TRC1820 registry standard] to let
  * token holders and recipients react to token movements by using setting implementers
- * for the associated interfaces in said registry. See {IERC1820Registry} and
- * {ERC1820Implementer}.
+ * for the associated interfaces in said registry. See {ITRC1820Registry} and
+ * {TRC1820Implementer}.
  */
 interface ITRC777 {
     /**

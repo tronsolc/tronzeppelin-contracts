@@ -23,7 +23,7 @@ import "./escrow/Escrow.sol";
 contract PullPayment {
     Escrow private _escrow;
 
-    constructor () internal {
+    constructor() internal {
         _escrow = new Escrow();
     }
 
@@ -66,6 +66,6 @@ contract PullPayment {
 
         // TODO: remove the previous linter directive once
         // https://github.com/protofire/solhint/issues/170 is fixed
-        _escrow.deposit{ value: amount }(dest);
+        _escrow.deposit.value(amount)(dest);
     }
 }

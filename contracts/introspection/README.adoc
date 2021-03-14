@@ -6,23 +6,23 @@ Ethereum contracts have no native concept of an interface, so applications must 
 
 There are two main ways to approach this.
 
-* Locally, where a contract implements `IERC165` and declares an interface, and a second one queries it directly via `ERC165Checker`.
-* Globally, where a global and unique registry (`IERC1820Registry`) is used to register implementers of a certain interface (`IERC1820Implementer`). It is then the registry that is queried, which allows for more complex setups, like contracts implementing interfaces for externally-owned accounts.
+* Locally, where a contract implements `ITRC165` and declares an interface, and a second one queries it directly via `TRC165Checker`.
+* Globally, where a global and unique registry (`ITRC1820Registry`) is used to register implementers of a certain interface (`ITRC1820Implementer`). It is then the registry that is queried, which allows for more complex setups, like contracts implementing interfaces for externally-owned accounts.
 
 Note that, in all cases, accounts simply _declare_ their interfaces, but they are not required to actually implement them. This mechanism can therefore be used to both prevent errors and allow for complex interactions (see `TRC777`), but it must not be relied on for security.
 
 == Local
 
-{{IERC165}}
+{{ITRC165}}
 
-{{ERC165}}
+{{TRC165}}
 
-{{ERC165Checker}}
+{{TRC165Checker}}
 
 == Global
 
-{{IERC1820Registry}}
+{{ITRC1820Registry}}
 
-{{IERC1820Implementer}}
+{{ITRC1820Implementer}}
 
-{{ERC1820Implementer}}
+{{TRC1820Implementer}}

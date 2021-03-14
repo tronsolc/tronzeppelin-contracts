@@ -4,7 +4,7 @@ import "../utils/Address.sol";
 
 contract AddressImpl {
     function isContract(address account) external view returns (bool) {
-        return Address.isContract(account);
+        return account.isContract;
     }
 
     function sendValue(address payable receiver, uint256 amount) external {

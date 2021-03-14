@@ -4,10 +4,10 @@ import "../GSN/Context.sol";
 import "../token/TRC777/ITRC777.sol";
 import "../token/TRC777/ITRC777Sender.sol";
 import "../token/TRC777/ITRC777Recipient.sol";
-import "../introspection/IERC1820Registry.sol";
-import "../introspection/ERC1820Implementer.sol";
+import "../introspection/ITRC1820Registry.sol";
+import "../introspection/TRC1820Implementer.sol";
 
-contract TRC777SenderRecipientMock is Context, ITRC777Sender, ITRC777Recipient, ERC1820Implementer {
+contract TRC777SenderRecipientMock is Context, ITRC777Sender, ITRC777Recipient, TRC1820Implementer {
     event TokensToSendCalled(
         address operator,
         address from,
@@ -35,7 +35,7 @@ contract TRC777SenderRecipientMock is Context, ITRC777Sender, ITRC777Recipient, 
     bool private _shouldRevertSend;
     bool private _shouldRevertReceive;
 
-    IERC1820Registry private _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+    ITRC1820Registry private _trc1820 = ITRC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
     bytes32 constant private _TOKENS_SENDER_INTERFACE_HASH = keccak256("TRC777TokensSender");
     bytes32 constant private _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("TRC777TokensRecipient");
@@ -112,7 +112,7 @@ contract TRC777SenderRecipientMock is Context, ITRC777Sender, ITRC777Recipient, 
     }
 
     function registerSender(address sender) public {
-        _erc1820.setInterfaceImplementer(address(this), _TOKENS_SENDER_INTERFACE_HASH, sender);
+        _trc1820.setInterfaceImplementer(address(this), _TOKENS_SENDER_INTERFACE_HASH, sender);
     }
 
     function recipientFor(address account) public {
@@ -125,7 +125,7 @@ contract TRC777SenderRecipientMock is Context, ITRC777Sender, ITRC777Recipient, 
     }
 
     function registerRecipient(address recipient) public {
-        _erc1820.setInterfaceImplementer(address(this), _TOKENS_RECIPIENT_INTERFACE_HASH, recipient);
+        _trc1820.setInterfaceImplementer(address(this), _TOKENS_RECIPIENT_INTERFACE_HASH, recipient);
     }
 
     function setShouldRevertSend(bool shouldRevert) public {

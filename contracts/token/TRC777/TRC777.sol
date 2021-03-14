@@ -7,7 +7,7 @@ import "./ITRC777Sender.sol";
 import "../../token/TRC20/ITRC20.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
-import "../../introspection/IERC1820Registry.sol";
+import "../../introspection/ITRC1820Registry.sol";
 
 /**
  * @dev Implementation of the {ITRC777} interface.
@@ -28,7 +28,7 @@ contract TRC777 is Context, ITRC777, ITRC20 {
     using SafeMath for uint256;
     using Address for address;
 
-    IERC1820Registry constant internal _ERC1820_REGISTRY = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+    ITRC1820Registry constant internal _TRC1820_REGISTRY = ITRC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
     mapping(address => uint256) private _balances;
 
@@ -78,8 +78,8 @@ contract TRC777 is Context, ITRC777, ITRC20 {
         }
 
         // register interfaces
-        _ERC1820_REGISTRY.setInterfaceImplementer(address(this), keccak256("TRC777Token"), address(this));
-        _ERC1820_REGISTRY.setInterfaceImplementer(address(this), keccak256("TRC20Token"), address(this));
+        _TRC1820_REGISTRY.setInterfaceImplementer(address(this), keccak256("TRC777Token"), address(this));
+        _TRC1820_REGISTRY.setInterfaceImplementer(address(this), keccak256("TRC20Token"), address(this));
     }
 
     /**
@@ -444,7 +444,7 @@ contract TRC777 is Context, ITRC777, ITRC20 {
     )
         private
     {
-        address implementer = _ERC1820_REGISTRY.getInterfaceImplementer(from, _TOKENS_SENDER_INTERFACE_HASH);
+        address implementer = _TRC1820_REGISTRY.getInterfaceImplementer(from, _TOKENS_SENDER_INTERFACE_HASH);
         if (implementer != address(0)) {
             ITRC777Sender(implementer).tokensToSend(operator, from, to, amount, userData, operatorData);
         }
@@ -472,11 +472,11 @@ contract TRC777 is Context, ITRC777, ITRC20 {
     )
         private
     {
-        address implementer = _ERC1820_REGISTRY.getInterfaceImplementer(to, _TOKENS_RECIPIENT_INTERFACE_HASH);
+        address implementer = _TRC1820_REGISTRY.getInterfaceImplementer(to, _TOKENS_RECIPIENT_INTERFACE_HASH);
         if (implementer != address(0)) {
             ITRC777Recipient(implementer).tokensReceived(operator, from, to, amount, userData, operatorData);
         } else if (requireReceptionAck) {
-            require(!to.isContract(), "TRC777: token recipient contract has no implementer for TRC777TokensRecipient");
+            require(!to.isContract, "TRC777: token recipient contract has no implementer for TRC777TokensRecipient");
         }
     }
 

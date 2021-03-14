@@ -1,6 +1,6 @@
 pragma solidity ^0.6.0;
 
-import "../../introspection/IERC165.sol";
+import "../../introspection/ITRC165.sol";
 
 /**
  * https://eips.ethereum.org/EIPS/eip-214#specification
@@ -12,11 +12,11 @@ import "../../introspection/IERC165.sol";
  * therefore, because this contract is staticcall'd we need to not emit events (which is how solidity-coverage works)
  * solidity-coverage ignores the /mocks folder, so we duplicate its implementation here to avoid instrumenting it
  */
-contract SupportsInterfaceWithLookupMock is IERC165 {
+contract SupportsInterfaceWithLookupMock is ITRC165 {
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
-    bytes4 public constant INTERFACE_ID_ERC165 = 0x01ffc9a7;
+    bytes4 public constant INTERFACE_ID_TRC165 = 0x01ffc9a7;
 
     /**
      * @dev A mapping of interface id to whether or not it's supported.
@@ -25,10 +25,10 @@ contract SupportsInterfaceWithLookupMock is IERC165 {
 
     /**
      * @dev A contract implementing SupportsInterfaceWithLookup
-     * implement ERC165 itself.
+     * implement TRC165 itself.
      */
     constructor () public {
-        _registerInterface(INTERFACE_ID_ERC165);
+        _registerInterface(INTERFACE_ID_TRC165);
     }
 
     /**
@@ -42,12 +42,12 @@ contract SupportsInterfaceWithLookupMock is IERC165 {
      * @dev Private method for registering an interface.
      */
     function _registerInterface(bytes4 interfaceId) internal {
-        require(interfaceId != 0xffffffff, "ERC165InterfacesSupported: invalid interface id");
+        require(interfaceId != 0xffffffff, "TRC165InterfacesSupported: invalid interface id");
         _supportedInterfaces[interfaceId] = true;
     }
 }
 
-contract ERC165InterfacesSupported is SupportsInterfaceWithLookupMock {
+contract TRC165InterfacesSupported is SupportsInterfaceWithLookupMock {
     constructor (bytes4[] memory interfaceIds) public {
         for (uint256 i = 0; i < interfaceIds.length; i++) {
             _registerInterface(interfaceIds[i]);

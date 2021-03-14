@@ -1,6 +1,6 @@
 = Presets
 
-These contracts integrate different Ethereum standards (ERCs) with custom extensions and modules, showcasing common configurations that are ready to deploy **without having to write any Solidity code**.
+These contracts integrate different Ethereum standards (TRCs) with custom extensions and modules, showcasing common configurations that are ready to deploy **without having to write any Solidity code**.
 
 They can be used as-is for quick prototyping and testing, but are **also suitable for production environments**.
 

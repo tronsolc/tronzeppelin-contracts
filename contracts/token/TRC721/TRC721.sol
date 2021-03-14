@@ -5,7 +5,7 @@ import "./ITRC721.sol";
 import "./ITRC721Metadata.sol";
 import "./ITRC721Enumerable.sol";
 import "./ITRC721Receiver.sol";
-import "../../introspection/ERC165.sol";
+import "../../introspection/TRC165.sol";
 import "../../math/SafeMath.sol";
 import "../../utils/Address.sol";
 import "../../utils/EnumerableSet.sol";
@@ -16,7 +16,7 @@ import "../../utils/Strings.sol";
  * @title TRC721 Non-Fungible Token Standard basic implementation
  * @dev see https://eips.ethereum.org/EIPS/eip-721
  */
-contract TRC721 is Context, ERC165, ITRC721, ITRC721Metadata, ITRC721Enumerable {
+contract TRC721 is Context, TRC165, ITRC721, ITRC721Metadata, ITRC721Enumerable {
     using SafeMath for uint256;
     using Address for address;
     using EnumerableSet for EnumerableSet.UintSet;
@@ -89,7 +89,7 @@ contract TRC721 is Context, ERC165, ITRC721, ITRC721Metadata, ITRC721Enumerable 
         _name = name;
         _symbol = symbol;
 
-        // register the supported interfaces to conform to TRC721 via ERC165
+        // register the supported interfaces to conform to TRC721 via TRC165
         _registerInterface(_INTERFACE_ID_TRC721);
         _registerInterface(_INTERFACE_ID_TRC721_METADATA);
         _registerInterface(_INTERFACE_ID_TRC721_ENUMERABLE);
@@ -492,7 +492,7 @@ contract TRC721 is Context, ERC165, ITRC721, ITRC721Metadata, ITRC721Enumerable 
     function _checkOnTRC721Received(address from, address to, uint256 tokenId, bytes memory _data)
         private returns (bool)
     {
-        if (!to.isContract()) {
+        if (!to.isContract) {
             return true;
         }
         // solhint-disable-next-line avoid-low-level-calls

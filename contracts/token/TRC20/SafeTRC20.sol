@@ -61,7 +61,7 @@ library SafeTRC20 {
         //  2. The call itself is made, and success asserted
         //  3. The return value is decoded, which in turn checks the size of the returned data.
         // solhint-disable-next-line max-line-length
-        require(address(token).isContract(), "SafeTRC20: call to non-contract");
+        require(address(token).isContract, "SafeTRC20: call to non-contract");
 
         // solhint-disable-next-line avoid-low-level-calls
         (bool success, bytes memory returndata) = address(token).call(data);
